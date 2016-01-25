@@ -14,7 +14,6 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   def play
     create_the_board
     draw_the_board
-    # create_the_players
   end
 
   def create_the_board
@@ -40,7 +39,3 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
 end
-
-x = Game.new
-x.create_the_board
-x.draw_the_board
