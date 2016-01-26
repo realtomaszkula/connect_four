@@ -10,8 +10,10 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def play
+    create_the_players
+    create_the_board
+
     42.times do
-      create_the_board
       draw_the_board
       player_turn
       change_turn
@@ -73,12 +75,19 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
 
   def update_the_board(input)
     y = input.to_i - 1
-    x = @board.transpose[y].index("x") - 1
+    x = find_x(y)
     @board[x][y] = "x"
   end
 
+  def find_x(y)
+    x1 = (@board.transpose[y].index("x")).to_i - 1
+    x2 = (@board.transpose[y].index("o")).to_i - 1
+    x = x1 >= x2 ? x1 : x2
+    x = 0 if x < 0
+    x
+  end
+
   def game_over?
-    draw_the_board
     @board.each { |row| @winner = true if row.join.include?("xxxx") }
     0..6.times { |i| @winner = true if @board.transpose[i].join.include?("xxxx") }
 
@@ -95,3 +104,5 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
 
 end
 
+# x = Game.new
+# x.play
