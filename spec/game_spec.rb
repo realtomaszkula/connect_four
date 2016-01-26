@@ -104,43 +104,72 @@ describe Game do
   end
 
   describe '#game_over?' do
-    context "when vertically" do
+    xcontext "when vertically" do
       it do
         game.create_the_board
         board[5][0], board[4][0], board[3][0], board[2][0] = "x", "x", "x", "x"
-        expect(subject.game_over?).to eql true
+        expect(game.game_over?).to eql true
       end
 
       it do
         game.create_the_board
         board[5][6], board[4][6], board[3][6], board[2][6] = "x", "x", "x", "x"
-        expect(subject.game_over?).to eql true
+        expect(game.game_over?).to eql true
       end
 
       it do
         game.create_the_board
         board[3][5], board[2][5], board[1][5], board[0][5]  = "x", "x", "x", "x"
-        expect(subject.game_over?).to eql true
+        expect(game.game_over?).to eql true
       end
 
       it do
         game.create_the_board
         board[3][4], board[2][4], board[1][4], board[0][4]  = "x", "x", "x", "x"
-        expect(subject.game_over?).to eql true
+        expect(game.game_over?).to eql true
       end
 
       it do
         game.create_the_board
         board[4][3], board[3][3], board[2][3], board[1][3]  = "x", "x", "x", "x"
-        expect(subject.game_over?).to eql true
+        expect(game.game_over?).to eql true
       end
 
       it do
         game.create_the_board
         board[4][2], board[3][2], board[2][2], board[1][2]  = "x", "x", "x", "x"
-        expect(subject.game_over?).to eql true
+        expect(game.game_over?).to eql true
       end
     end
+
+    context "when horizontally" do
+      it do
+        game.create_the_board
+        board[0][0], board[0][1], board[0][2], board[0][3]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(game.winner).to eql true
+      end
+      it do
+        game.create_the_board
+        board[5][0], board[5][1], board[5][2], board[5][3]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(game.winner).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[3][1], board[3][2], board[3][3], board[3][4]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(game.winner).to eql true
+      end
+      it do
+        game.create_the_board
+        board[3][3], board[3][4], board[3][5], board[3][6]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(game.winner).to eql true
+      end
+    end
+
   end
 
   describe '#victory' do

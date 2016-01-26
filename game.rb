@@ -73,6 +73,7 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def game_over?
+    @board.each { |row| @winner = true if row.join.include?("xxxx") }
 
   end
 
