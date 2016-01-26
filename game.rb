@@ -72,5 +72,9 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
     @board[x][y] = "x"
   end
 
+  def game_over?
+
+  end
+
 end
 

@@ -43,9 +43,6 @@ describe Game do
     end
   end
 
-  describe '#player_turn' do
-  end
-
   describe '#correct_num?' do
     context 'when given user input' do
       it { expect(game.correct_num?("9")).to eql false }
@@ -103,19 +100,56 @@ describe Game do
         it { expect(board[4][4]).to eql "x" } # 5th
         it { expect(board[2][5]).to eql "x" } # 6th
         it { expect(board[2][6]).to eql "x" } # 7th
-
       end
-
   end
 
-
   describe '#game_over?' do
+    context "when vertically" do
+      it do
+        game.create_the_board
+        board[5][0], board[4][0], board[3][0], board[2][0] = "x", "x", "x", "x"
+        expect(subject.game_over?).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[5][6], board[4][6], board[3][6], board[2][6] = "x", "x", "x", "x"
+        expect(subject.game_over?).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[3][5], board[2][5], board[1][5], board[0][5]  = "x", "x", "x", "x"
+        expect(subject.game_over?).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[3][4], board[2][4], board[1][4], board[0][4]  = "x", "x", "x", "x"
+        expect(subject.game_over?).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[4][3], board[3][3], board[2][3], board[1][3]  = "x", "x", "x", "x"
+        expect(subject.game_over?).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[4][2], board[3][2], board[2][2], board[1][2]  = "x", "x", "x", "x"
+        expect(subject.game_over?).to eql true
+      end
+    end
   end
 
   describe '#victory' do
   end
 
   describe '#change_turn' do
+  end
+
+  describe '#player_turn' do
   end
 
 end
