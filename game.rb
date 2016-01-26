@@ -22,6 +22,7 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
     unless @winner
       puts "Draw!"
     end
+    draw_the_board
     victory
   end
 
@@ -117,11 +118,8 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def victory
-    draw_the_board
     puts "And the winner is: #{@active_player[:name]}!"
   end
 
 end
 
-x = Game.new
-x.play
