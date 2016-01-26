@@ -170,6 +170,36 @@ describe Game do
       end
     end
 
+    context "when diagonally" do
+      it do
+        game.create_the_board
+        board[5][0], board[4][1], board[3][2], board[2][3]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(subject).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[3][0], board[2][1], board[1][2], board[0][3]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(subject).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[5][3], board[4][4], board[3][5], board[2][6]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(subject).to eql true
+      end
+
+      it do
+        game.create_the_board
+        board[3][3], board[2][4], board[1][5], board[0][6]  = "x", "x", "x", "x"
+        game.game_over?
+        expect(subject).to eql true
+      end
+    end
+
   end
 
   describe '#victory' do

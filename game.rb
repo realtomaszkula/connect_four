@@ -10,11 +10,16 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def play
-    create_the_board
-    draw_the_board
-    player_turn
-
-
+    42.times do
+      create_the_board
+      draw_the_board
+      player_turn
+      change_turn
+      break if @winner
+    end
+    unless @winner
+      puts "Draw!"
+    end
   end
 
   def create_the_board
@@ -75,6 +80,16 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   def game_over?
     @board.each { |row| @winner = true if row.join.include?("xxxx") }
     0..6.times { |i| @winner = true if @board.transpose[i].join.include?("xxxx") }
+
+    for i in 0..2
+      for j in 0..3
+        @winner = true if board[i][j] == "x" && board[i][j+1] == "x" && board[i][j+2] == "x" && board[i][j+3] == "x"
+        break if @winner == true
+      end
+      break if @winner == true
+    end
+
+    @winner
   end
 
 end
