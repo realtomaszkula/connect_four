@@ -22,6 +22,7 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
     unless @winner
       puts "Draw!"
     end
+    victory
   end
 
   def create_the_board
@@ -100,6 +101,14 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
       break if @winner
     end
     @winner
+  end
+
+  def change_turn
+    @active_player = @active_player == @player1 ? @player2 : @player1
+  end
+
+  def victory
+    puts "And the winner is: #{@active_player[:name]}!"
   end
 
 end

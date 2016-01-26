@@ -209,16 +209,31 @@ describe Game do
         expect(subject).to eql true
       end
     end
-
   end
 
   describe '#victory' do
   end
 
   describe '#change_turn' do
+    before do
+              game.instance_variable_set(:@player1, { name: "Tomasz", sign: "x" })
+              game.instance_variable_set(:@player2, { name: "Piotr", sign: "o" })
+              game.instance_variable_set(:@active_player, { name: "Tomasz", sign: "x" })
+              game.change_turn
+          end
+    it do
+      plr1 = game.instance_variable_get(:@player1)
+      plr2 = game.instance_variable_get(:@player2)
+      active = game.instance_variable_get(:@active_player)
+      expect(active).to eql plr2
+    end
   end
 
-  describe '#player_turn' do
+  describe '#victory' do
+    it do
+      game.instance_variable_set(:@active_player, { name: "Tomasz" })
+      expect { game.victory }.to output("And the winner is: Tomasz!\n").to_stdout
+    end
   end
 
 end
