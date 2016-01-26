@@ -78,15 +78,16 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def game_over?
+    draw_the_board
     @board.each { |row| @winner = true if row.join.include?("xxxx") }
     0..6.times { |i| @winner = true if @board.transpose[i].join.include?("xxxx") }
 
     for i in 0..2
       for j in 0..3
-        @winner = true if board[i][j] == "x" && board[i][j+1] == "x" && board[i][j+2] == "x" && board[i][j+3] == "x"
-        break if @winner == true
+        @winner = true if board[5-i][j] == "x" && board[4-i][j+1] == "x" && board[3-i][j+2] == "x" && board[2-i][j+3] == "x"
+        break if @winner
       end
-      break if @winner == true
+      break if @winner
     end
 
     @winner
