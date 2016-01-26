@@ -38,7 +38,7 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
 
   def draw_the_board
     puts "\e[H\e[2J"
-    print "  1  2  3  4  5  6  7\n"
+    print " 1  2  3  4  5  6  7\n"
     @board.each do |row|
       row.each { |x| print "|#{x}|" }
       print "\n"
@@ -56,14 +56,15 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def player_turn
-    puts "Where do you want to move?"
+    puts "#{active_player[:name]}, where do you want to move?"
     input = gets.chomp.upcase
 
     until correct_num?(input) && empty_space?(input)
+      puts "Incorrect, try again"
       input = gets.chomp
     end
-
     update_the_board(input)
+    game_over?
   end
 
   def correct_num?(input)
@@ -98,8 +99,8 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
 
   def game_over?
     s =  @active_player[:sign]
-    @board.each { |row| @winner = true if row.join.include?(s) }
-    0..6.times { |i| @winner = true if @board.transpose[i].join.include?(s) }
+    @board.each { |row| @winner = true if row.join.include?("#{s}#{s}#{s}#{s}") }
+    0..6.times { |i| @winner = true if @board.transpose[i].join.include?("#{s}#{s}#{s}#{s}") }
 
     for i in 0..2
       for j in 0..3
@@ -116,6 +117,7 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def victory
+    draw_the_board
     puts "And the winner is: #{@active_player[:name]}!"
   end
 
