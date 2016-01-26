@@ -86,7 +86,6 @@ describe Game do
           board[4][6] = @s
           board[3][6] = @s
 
-          # board.each {|row| puts "\n #{row}"  }
           game.update_the_board("1")
           game.update_the_board("2")
           game.update_the_board("3")
@@ -94,8 +93,7 @@ describe Game do
           game.update_the_board("5")
           game.update_the_board("6")
           game.update_the_board("7")
-          # puts "\n"
-          # board.each {|row| puts "\n #{row}"  }
+
         end
 
         it { expect(board[3][0]).to eql @s } # 1st

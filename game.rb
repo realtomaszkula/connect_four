@@ -37,6 +37,7 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def draw_the_board
+    puts "\e[H\e[2J"
     print "  1  2  3  4  5  6  7\n"
     @board.each do |row|
       row.each { |x| print "|#{x}|" }
@@ -76,16 +77,23 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
 
   def update_the_board(input)
     y = input.to_i - 1
-    x = find_x(y)
+    x = find_x(y) - 1
     @board[x][y] = @active_player[:sign]
   end
 
   def find_x(y)
-    x1 = (@board.transpose[y].index(@player1[:sign])).to_i - 1
-    x2 = (@board.transpose[y].index(@player2[:sign])).to_i - 1
-    x = x1 >= x2 ? x1 : x2
-    x = 0 if x < 0
-    x
+    x1 = (@board.transpose[y].index(@player1[:sign])).to_i
+    x2 = (@board.transpose[y].index(@player2[:sign])).to_i
+
+    if x1 == 0 && x2 == 0
+      return x = 6
+    elsif x1 == 0
+      return x1 = x2
+    elsif x2 == 0
+      return x2 = x1
+    else
+      return x = [x1,x2].min
+    end
   end
 
   def game_over?
@@ -113,5 +121,5 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
 
 end
 
-# x = Game.new
-# x.play
+x = Game.new
+x.play
