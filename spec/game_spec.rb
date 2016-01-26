@@ -109,11 +109,12 @@ describe Game do
   describe '#game_over?' do
     subject (:winner) { game.winner }
     before do
-              @player1 = { sign: "x"}
-              @s = @player1[:sign]
+              @s = "x"
+              game.instance_variable_set(:@active_player, { name: "Tomasz", sign: "x" })
           end
     context "when vertically" do
       it do
+
         game.create_the_board
         board[5][0], board[4][0], board[3][0], board[2][0] = @s, @s, @s, @s
         game.game_over?
@@ -134,7 +135,7 @@ describe Game do
         expect(subject).to eql true
       end
 
-      it do
+     it do
         game.create_the_board
         board[4][3], board[3][3], board[2][3], board[1][3]  = @s, @s, @s, @s
         game.game_over?
