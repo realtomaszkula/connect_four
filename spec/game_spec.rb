@@ -64,8 +64,10 @@ describe Game do
 
       context '#update_the_board' do
         before do
-          @player1 = { sign: "x"}
-          @s = @player1[:sign]
+          game.instance_variable_set(:@player1, { name: "Tomasz", sign: "x" })
+          game.instance_variable_set(:@player2, { name: "Piotr", sign: "y" })
+          game.instance_variable_set(:@active_player, { name: "Tomasz", sign: "x" })
+          @s = "x"
 
           game.create_the_board.reverse
           board[5][0] = @s     #1st column

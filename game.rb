@@ -76,12 +76,12 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   def update_the_board(input)
     y = input.to_i - 1
     x = find_x(y)
-    @board[x][y] = "x"
+    @board[x][y] = @active_player[:sign]
   end
 
   def find_x(y)
-    x1 = (@board.transpose[y].index("x")).to_i - 1
-    x2 = (@board.transpose[y].index("o")).to_i - 1
+    x1 = (@board.transpose[y].index(@player1[:sign])).to_i - 1
+    x2 = (@board.transpose[y].index(@player2[:sign])).to_i - 1
     x = x1 >= x2 ? x1 : x2
     x = 0 if x < 0
     x
