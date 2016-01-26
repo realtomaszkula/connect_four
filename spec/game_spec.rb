@@ -2,24 +2,16 @@ require_relative "../game"
 
 describe Game do
   let(:game) { Game.new }
-  describe '#initialize' do
-
-    context 'when initialized' do
-      it { expect(game.player1).to eql nil }
-      it { expect(game.player2).to eql nil }
-      it { expect(game.active_player).to eql nil }
-      it { expect(game.board).to eql [] }
-      it { expect(game.winner).to eql false }
-    end
-  end
+  let(:board) { game.board }
 
   describe '#create_the_board' do
-    before { game.create_the_board }
-    context 'when created' do
-      it { expect(game.board.size).to eql 6 }
-      it { expect(game.board[0].size).to eql 7 }
-      it { expect(game.board[0][0]).to eql " " }
-    end
+    before {
+              game.create_the_board
+              @row = board.first
+              @col = board.transpose.first
+            }
+      it { expect(@row.size).to eql 7 }
+      it { expect(@col.size).to eql 6 }
   end
 
   describe '#create_the_players' do
@@ -39,23 +31,89 @@ describe Game do
 
     it 'sets @player1 and @player2 according to user\'s input' do
       subject.create_the_players
-      expect(subject.instance_variable_get(:@player1)).to eq :player1
-      expect(subject.instance_variable_get(:@player2)).to eq :player2
-      expect(subject.instance_variable_get(:@active_player)).to eq :player1
+      plr1 = subject.instance_variable_get(:@player1)
+      plr2 = subject.instance_variable_get(:@player2)
+      active = subject.instance_variable_get(:@active_player)
+
+      expect(plr1[:name]).to eql :player1
+      expect(plr1[:sign]).to eql "x"
+      expect(plr2[:name]).to eql :player2
+      expect(plr2[:sign]).to eql "o"
+      expect(active).to eq plr1
     end
   end
 
-  describe '#get_input' do
+  describe '#player_turn' do
   end
 
-  describe '#correct_input?' do
+  describe '#correct_num?' do
+    context 'when given user input' do
+      it { expect(game.correct_num?("9")).to eql false }
+      it { expect(game.correct_num?("")).to eql false }
+      it { expect(game.correct_num?("1")).to eql true }
+    end
   end
 
-  describe '#empty_space?' do
+  describe "board interaction" do
+
+      context '#empty_space?' do
+        before do
+          game.create_the_board
+          board[0][0] = "x"
+        end
+          it { expect(game.empty_space?("1")).to be false }
+          it { expect(game.empty_space?("2")).to be true }
+      end
+
+      context '#update_the_board' do
+        before do
+          game.create_the_board
+          board[5][0] = "x"     #1st column
+          board[4][0] = "x"
+
+          board[5][1] = "x"     # 2nd column
+
+          board[5][2] = "x"     # 3rd column
+          board[4][2] = "x"
+          board[3][2] = "x"
+
+          board[5][3] = "x"     # 4th column
+          board[4][3] = "x"
+
+          board[5][4] = "x"     # 5th column
+
+          board[5][5] = "x"     # 6th column
+          board[4][5] = "x"
+          board[3][5] = "x"
+
+          board[5][6] = "x"     # 7th column
+          board[4][6] = "x"
+          board[3][6] = "x"
+
+
+          game.update_the_board("1")
+          game.update_the_board("2")
+          game.update_the_board("3")
+          game.update_the_board("4")
+          game.update_the_board("5")
+          game.update_the_board("6")
+          game.update_the_board("7")
+
+        end
+        it { expect(board[3][0]).to eql "x" } # 1st
+        it { expect(board[4][1]).to eql "x" } # 2nd
+        it { expect(board[2][2]).to eql "x" } # 3rd
+
+        it { expect(board[3][3]).to eql "x" } # 4th
+        it { expect(board[4][4]).to eql "x" } # 5th
+        it { expect(board[2][5]).to eql "x" } # 6th
+
+        it { expect(board[2][6]).to eql "x" } # 7th
+
+      end
+
   end
 
-  describe '#update_board' do
-  end
 
   describe '#game_over?' do
   end
