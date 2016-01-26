@@ -67,30 +67,24 @@ describe Game do
 
       context '#update_the_board' do
         before do
-          game.create_the_board
+          game.create_the_board.reverse
           board[5][0] = "x"     #1st column
           board[4][0] = "x"
-
           board[5][1] = "x"     # 2nd column
-
           board[5][2] = "x"     # 3rd column
           board[4][2] = "x"
           board[3][2] = "x"
-
           board[5][3] = "x"     # 4th column
           board[4][3] = "x"
-
           board[5][4] = "x"     # 5th column
-
           board[5][5] = "x"     # 6th column
           board[4][5] = "x"
           board[3][5] = "x"
-
           board[5][6] = "x"     # 7th column
           board[4][6] = "x"
           board[3][6] = "x"
 
-
+          # board.each {|row| puts "\n #{row}"  }
           game.update_the_board("1")
           game.update_the_board("2")
           game.update_the_board("3")
@@ -98,16 +92,16 @@ describe Game do
           game.update_the_board("5")
           game.update_the_board("6")
           game.update_the_board("7")
-
+          # puts "\n"
+          # board.each {|row| puts "\n #{row}"  }
         end
+
         it { expect(board[3][0]).to eql "x" } # 1st
         it { expect(board[4][1]).to eql "x" } # 2nd
         it { expect(board[2][2]).to eql "x" } # 3rd
-
         it { expect(board[3][3]).to eql "x" } # 4th
         it { expect(board[4][4]).to eql "x" } # 5th
         it { expect(board[2][5]).to eql "x" } # 6th
-
         it { expect(board[2][6]).to eql "x" } # 7th
 
       end

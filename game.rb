@@ -67,8 +67,9 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
   end
 
   def update_the_board(input)
-
-
+    y = input.to_i - 1
+    x = @board.transpose[y].index("x") - 1
+    @board[x][y] = "x"
   end
 
 end
