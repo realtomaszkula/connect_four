@@ -74,7 +74,7 @@ attr_accessor :player1, :player2, :active_player, :winner, :board
 
   def game_over?
     @board.each { |row| @winner = true if row.join.include?("xxxx") }
-
+    0..6.times { |i| @winner = true if @board.transpose[i].join.include?("xxxx") }
   end
 
 end
